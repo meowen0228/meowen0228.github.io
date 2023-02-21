@@ -2,7 +2,7 @@
   "name": "meowen0228",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://meowen0228.github.io/meowen0228.github.io",
+  "homepage": "https://meowen0228.github.io",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
