@@ -1,0 +1,108 @@
+.HomePage {
+  width: 100%;
+  height: 100vh;
+  background-color: #eaddff;
+  background-image: linear-gradient(60deg, #eaddff 0%, #bee9ff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .main {
+    width: 760px;
+    height: 500px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: self-start;
+    gap: 50px;
+
+    // align-items: center // border: solid .2px rgba(187, 187, 187, .5);
+    // border-radius: 8px;
+    // background-color: rgba($color: #dadada, $alpha: 0.25);
+    // box-shadow: 12px 8px 13px 2px rgba(0, 0, 0, 0.21);
+    // -webkit-box-shadow: 12px 8px 13px 2px rgba(0, 0, 0, 0.21);
+    // -moz-box-shadow: 12px 8px 13px 2px rgba(0, 0, 0, 0.21);
+    .left_side {
+      text-align: center;
+
+      .my_title {
+        height: 200px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: scroll;
+
+      }
+
+      .my_title::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+
+    .right_side {
+      text-align: center;
+    }
+
+    .contact_me {
+      width: 100%;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      a {
+        transition: all .2s ease;
+      }
+
+      a:hover {
+        color: palevioletred;
+      }
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 30px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .ArrowDown {
+    width: 60px;
+    bottom: 40px;
+    animation-name: slideDown;
+  }
+
+  .ArrowDown::before {
+    width: 160px;
+    content: "About Me";
+    text-align: center;
+    position: absolute;
+    top: 0;
+  }
+
+  .ArrowRight {
+    right: 40px;
+    top: 50%;
+    translate: 0% -50%;
+    animation-name: slideRight;
+  }
+
+  .ArrowRight::before {
+    width: 160px;
+    content: "Projects";
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    translate: 0% -50%;
+  }
+
+}
