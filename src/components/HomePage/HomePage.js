@@ -1,13 +1,25 @@
-import React from "react";
-import "./HomePage.scss";
-import SocialInfo from "./SocialInfo";
-import { ArrowDown2, ArrowRight2 } from "iconsax-react";
-import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { React, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+import { ArrowDown2, ArrowRight2 } from "iconsax-react";
+
+import SocialInfo from "./SocialInfo";
+import HomeParticles from "./HomeParticles";
+
+import "./HomePage.scss";
 import avatar from "./S__32448516.jpg";
 
 function HomePage() {
+  const particlesInit = useCallback(async (engine) => {
+    console.log(engine);
+    await loadFull(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async (container) => {
+    await console.log(container);
+  }, []);
   return (
     <>
       <motion.main
@@ -18,6 +30,7 @@ function HomePage() {
         transition={{ duration: 1 }}
       >
         <div className='HomePage' id='HomePage'>
+          <HomeParticles />
           <div className='main'>
             <div className='left_side'>
               <div className='avatar'>

@@ -43,12 +43,12 @@ body {
 @keyframes slideDown {
   0% {
     bottom: 40px;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   35% {
     bottom: 22px;
-    opacity: 0.08;
+    opacity: 0;
   }
 
   100% {
@@ -60,12 +60,12 @@ body {
 @keyframes slideRight {
   0% {
     right: 40px;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   35% {
     right: 22px;
-    opacity: 0.08;
+    opacity: 0;
   }
 
   100% {
@@ -77,12 +77,12 @@ body {
 @keyframes slideLeft {
   0% {
     left: 40px;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   35% {
     left: 22px;
-    opacity: 0.08;
+    opacity: 0;
   }
 
   100% {
