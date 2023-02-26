@@ -21,19 +21,20 @@ function HomeParticles() {
         fpsLimit: 120,
         interactivity: {
           events: {
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "push",
-            },
+            // onClick: {
+            //   enable: true,
+            //   mode: "push",
+            // },
+            // onHover: {
+            //   enable: true,
+            //   mode: "grab",
+            // },
             resize: true,
           },
           modes: {
             push: {
               quantity: 10,
+              duration: 1,
             },
             repulse: {
               distance: 200,
@@ -91,7 +92,6 @@ function HomeParticles() {
               sync: false,
             },
           },
-
           shape: {
             type: "circle",
             polygon: {
@@ -101,10 +101,21 @@ function HomeParticles() {
               width: 0,
               color: "#000000",
             },
+            // image: {
+            //   src: "img/github.svg",
+            //   width: 100,
+            //   height: 100,
+            // },
           },
           size: {
             value: { min: 1, max: 6 },
           },
+          // life: {
+          //   duration: {
+          //     sync: false,
+          //     value: 30,
+          //   },
+          // },
           // line_linked: {
           //   enable: true,
           //   distance: 150,

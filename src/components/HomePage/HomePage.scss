@@ -1,8 +1,6 @@
 .HomePage {
   width: 100%;
   height: 100vh;
-  background-color: #eaddff;
-  background-image: linear-gradient(60deg, #b39cd3 0%, #44565f 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,44 +61,29 @@
       height: 200px;
       overflow: hidden;
       border-radius: 30px;
+      position: relative;
 
       img {
         width: 100%;
       }
+
+      // .imgFlash {
+      //   width: 10%;
+      //   height: 200%;
+      //   background-color: rgba($color: #ffffff, $alpha: 0.3);
+      //   rotate: 135deg;
+      //   position: absolute;
+      //   z-index: 1;
+      // }
     }
   }
 
-  .ArrowDown {
-    width: 60px;
-    bottom: 40px;
-    animation-name: slideDown;
-  }
-
-  .ArrowDown::before {
-    width: 160px;
+  .ArrowLeft::before {
     content: "About Me";
-    text-align: center;
-    position: absolute;
-    top: 0;
-    color: rgb(221, 216, 216);
-  }
-
-  .ArrowRight {
-    right: 40px;
-    top: 50%;
-    translate: 0% -50%;
-    animation-name: slideRight;
   }
 
   .ArrowRight::before {
-    width: 160px;
     content: "Projects";
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    right: -10px;
-    translate: 0% -50%;
-    color: rgb(221, 216, 216);
   }
 
   .backgroud {
