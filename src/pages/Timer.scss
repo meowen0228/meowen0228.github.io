@@ -1,6 +1,9 @@
 .Timers {
   max-width: 600px;
-  scroll-behavior: smooth;
+
+  .ant-table-body {
+    scroll-behavior: smooth;
+  }
 
   .ant-select {
     width: 100%;
