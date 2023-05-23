@@ -1,9 +1,12 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react'
 import { Table, Select, Button } from 'antd'
 import './Timer.scss'
 
+
 function Timer() {
+  const { t, i18n } = useTranslation();
   const [time, setTime] = useState(0)
   const [timerOn, setTimerOn] = useState(false)
   const [canInsert, setCanInsert] = useState(true)
@@ -11,7 +14,7 @@ function Timer() {
   const [list, setList] = useState([
     {
       key: 1,
-      name: 'Asasa',
+      name: 'ddddd',
       time: '-',
     },
     {
@@ -51,7 +54,7 @@ function Timer() {
       },
     },
     {
-      title: 'Name',
+      title: t('table_title_name'),
       dataIndex: 'name',
       render: (v) => {
         if (!v) {
@@ -67,9 +70,24 @@ function Timer() {
     {
       title: 'Time',
       dataIndex: 'time',
-      render: (v) => formatTime(v),
+      render: (id, record, index) => {
+        let v
+        if (typeof record.time != 'number') {
+          return record.time
+        }
+        if (index == 0) {
+          v = record.time
+        } else {
+          v = record.time - list[index - 1].time
+        }
+        return formatTime(v)
+      },
     },
   ]
+
+  const changeLanguageHandler = (lang = 'tw') => {
+    i18n.changeLanguage(lang)
+  }
 
   const formatTime = (time) => {
     if (time == '-') {
@@ -174,10 +192,10 @@ function Timer() {
 
       <div id="buttons">
         {!timerOn && time === 0 && (
-          <button onClick={() => setTimerOn(true)}>Start</button>
+          <Button onClick={() => setTimerOn(true)}>Start</Button>
         )}
-        {timerOn && <button onClick={() => setTimerOn(false)}>Stop</button>}
-        {timerOn && <button onClick={() => thisStepDone()}>Done</button>}
+        {timerOn && <Button onClick={() => setTimerOn(false)}>Stop</Button>}
+        {timerOn && <Button onClick={() => thisStepDone()}>Done</Button>}
         {timerOn && (
           <Button onClick={() => insertStep()} disabled={!canInsert}>
             {' '}
@@ -185,11 +203,13 @@ function Timer() {
           </Button>
         )}
         {!timerOn && time > 0 && (
-          <button onClick={() => resetTime()}>Reset</button>
+          <Button onClick={() => resetTime()}>Reset</Button>
         )}
         {!timerOn && time > 0 && (
-          <button onClick={() => setTimerOn(true)}>Resume</button>
+          <Button onClick={() => setTimerOn(true)}>Resume</Button>
         )}
+        <Button onClick={() => changeLanguageHandler()}>lang: tw</Button>
+        <Button onClick={() => changeLanguageHandler('en')}>lang: en</Button>
       </div>
     </div>
   )
