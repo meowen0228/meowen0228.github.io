@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 100 80" width="100" height="80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <rect x="47" y="60" width="6" height="10" style="fill: rgb(90, 90, 90);"/>
-  <rect x="10" y="10" width="80" height="50" style="fill: rgb(238, 227, 225); stroke: rgb(185, 187, 178); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;"/>
-  <rect x="30" y="70" width="40" height="1.8" style="fill: rgb(151, 150, 150);"/>
-</svg>
