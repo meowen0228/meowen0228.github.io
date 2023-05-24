@@ -6,21 +6,23 @@ import { initReactI18next } from 'react-i18next'
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
-    translation: {
-      timer: 'Timer',
-      history: 'History',
-      template: 'Template',
-      style: 'Style',
-      table_title_name: 'Name',
-    },
+    translation: {},
   },
   tw: {
     translation: {
-      timer: '計時器',
-      history: '歷史紀錄',
-      template: '模板',
-      style: '樣式',
-      table_title_name: '名稱',
+      Timer: '計時器',
+      History: '歷史紀錄',
+      Template: '模板',
+      Style: '樣式',
+      Name: '名稱',
+      Time: '時間',
+      Save: '儲存',
+      Start: '開始',
+      Stop: '暫停',
+      Resume: '繼續',
+      Reset: '重置',
+      Done: '計步',
+      Insert: '新增',
     },
   },
 }
