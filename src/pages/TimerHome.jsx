@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, Outlet } from 'react-router-dom'
-import { useState } from 'react'
 import { Button, Divider, Drawer, Menu, Typography } from 'antd'
 import {
   FieldTimeOutlined,
@@ -16,7 +15,7 @@ const { Title } = Typography
 
 function TimerHome() {
   const { t, i18n } = useTranslation()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
 
   const changeLanguageHandler = (lang = 'tw') => {
@@ -49,12 +48,17 @@ function TimerHome() {
 
   const menuItemOnClick = (e) => {
     closeDrawer()
-    navigate(e.item.props.path, { replace: true });
-  };
+    navigate(e.item.props.path, { replace: true })
+  }
 
   return (
     <div className="timer_home">
-      <Button type="text" onClick={showDrawer} icon={<MenuOutlined />} />
+      <div>
+        <Button type="text" onClick={showDrawer} icon={<MenuOutlined />} />
+      </div>
+      <div>
+        <Outlet />
+      </div>
       <Drawer
         placement="left"
         closable={false}
@@ -65,11 +69,15 @@ function TimerHome() {
       >
         <Title level={4}>MENU</Title>
         <Divider />
-        <Menu defaultSelectedKeys={['1']} mode="inline" items={menuList} onClick={menuItemOnClick} />
+        <Menu
+          defaultSelectedKeys={['1']}
+          mode="inline"
+          items={menuList}
+          onClick={menuItemOnClick}
+        />
         <Button onClick={() => changeLanguageHandler()}>lang: tw</Button>
         <Button onClick={() => changeLanguageHandler('en')}>lang: en</Button>
       </Drawer>
-      <Outlet />
     </div>
   )
 }
