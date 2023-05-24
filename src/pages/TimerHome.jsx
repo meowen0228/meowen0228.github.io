@@ -61,6 +61,7 @@ function TimerHome() {
         onClose={closeDrawer}
         open={open}
         width={'60%'}
+        style={{ minWidth: '250px', maxWidth: '400px' }}
       >
         <Title level={4}>MENU</Title>
         <Divider />

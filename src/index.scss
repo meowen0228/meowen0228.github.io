@@ -12,7 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
 }
 
 #root {
@@ -22,7 +21,42 @@
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
-  padding: 2rem
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4c4c4c;
+  border: none;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6e6e6e;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #6e6e6e;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active,
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 a {
@@ -41,6 +75,20 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  .ant-divider {
+    margin: 12px 0;
+  }
+
+  .ant-drawer .ant-drawer-content-wrapper .ant-drawer-body .ant-menu {
+    border-inline-end: 0px;
+  }
+
+  .ant-drawer-content-wrapper {
+    width: 60%;
+    min-width: 250px;
+    max-width: 400px;
+  }
 }
 
 h1 {
@@ -67,15 +115,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-.ant-divider {
-  margin: 12px 0;
-
-}
-
-.ant-drawer .ant-drawer-content-wrapper .ant-drawer-body .ant-menu {
-  border-inline-end: 0px;
 }
 
 @media (prefers-color-scheme: light) {
