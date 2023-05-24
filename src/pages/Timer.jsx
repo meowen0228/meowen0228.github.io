@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect } from 'react'
 import { Table, Select, Button, Typography } from 'antd'
 import './Timer.scss'
+
+import { formatInterval } from '../utils/formatTimeFunc'
+import { getArrayWithKey, setArrayWithKey } from '../utils/localStorageFunc'
 
 const { Title } = Typography
 
@@ -81,19 +83,10 @@ function Timer() {
         } else {
           v = record.time - list[index - 1].time
         }
-        return formatTime(v)
+        return formatInterval(v)
       },
     },
   ]
-
-  const formatTime = (time) => {
-    if (time == '-') {
-      return '-'
-    }
-    return `${('0' + Math.floor((time / 60000) % 60)).slice(-2)}:${(
-      '0' + Math.floor((time / 1000) % 60)
-    ).slice(-2)}:${('0' + ((time / 10) % 100)).slice(-2)}`
-  }
 
   const setTableBodyScrollTop = (index) => {
     setTimeout(() => {
@@ -132,15 +125,15 @@ function Timer() {
     })
 
   const thisStepDone = () => {
-    getNewListObj(true, (lastEmptyTimeObjIndex, newList) => {
+    getNewListObj(false, (lastEmptyTimeObjIndex, newList) => {
       if (lastEmptyTimeObjIndex < 0) {
         lastEmptyTimeObjIndex = newList.length
         setList(newList)
       } else {
         list[lastEmptyTimeObjIndex].time = time
       }
-      setTableBodyScrollTop(lastEmptyTimeObjIndex) -
-        checkIndexForCanInsert(lastEmptyTimeObjIndex)
+      setTableBodyScrollTop(lastEmptyTimeObjIndex)
+      checkIndexForCanInsert(lastEmptyTimeObjIndex)
     })
   }
 
@@ -158,23 +151,15 @@ function Timer() {
   }
 
   const saveList = () => {
-    let historyList = JSON.parse(localStorage.getItem('history'))
-    console.log(historyList)
-    if (!historyList) {
-      historyList = []
-    }
-    historyList.push({
-      date: new Date(),
-      data: list,
+    getArrayWithKey('history', (historyList) => {
+      historyList.push({
+        date: new Date(),
+        data: list,
+      })
+      setArrayWithKey('history', historyList)
+      setTimerOn(false)
+      setTime(list[list.length - 1].time)
     })
-    localStorage.setItem('history', JSON.stringify(historyList))
-    setTimerOn(false)
-    setTime(
-      list.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.time,
-        0
-      )
-    )
   }
 
   useEffect(() => {
@@ -193,7 +178,7 @@ function Timer() {
 
   return (
     <div className="timers">
-      <Title level={1}>{formatTime(time)}</Title>
+      <Title level={1}>{formatInterval(time)}</Title>
 
       <Table
         columns={columns}
