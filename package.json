@@ -9,9 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "deploy": "gh-pages -d dist"
+    "deploy": "vite build && gh-pages -d dist"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.0",
     "antd": "^5.5.0",
     "gh-pages": "^5.0.0",
     "i18next": "^22.5.0",
