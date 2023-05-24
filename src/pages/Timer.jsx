@@ -1,12 +1,13 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import { useState, useEffect } from 'react'
-import { Table, Select, Button } from 'antd'
+import { Table, Select, Button, Typography } from 'antd'
 import './Timer.scss'
 
+const { Title } = Typography
 
 function Timer() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation()
   const [time, setTime] = useState(0)
   const [timerOn, setTimerOn] = useState(false)
   const [canInsert, setCanInsert] = useState(true)
@@ -54,7 +55,7 @@ function Timer() {
       },
     },
     {
-      title: t('table_title_name'),
+      title: t('Name'),
       dataIndex: 'name',
       render: (v) => {
         if (!v) {
@@ -85,10 +86,6 @@ function Timer() {
     },
   ]
 
-  const changeLanguageHandler = (lang = 'tw') => {
-    i18n.changeLanguage(lang)
-  }
-
   const formatTime = (time) => {
     if (time == '-') {
       return '-'
@@ -111,7 +108,7 @@ function Timer() {
     }
   }
 
-  const getNewListObj = (insert) => {
+  const getNewListObj = (insert, fn) => {
     let lastEmptyTimeObjIndex = list.findIndex((v) => v.time == '-')
     const newList = [...list]
     const newObj = {
@@ -124,26 +121,27 @@ function Timer() {
     } else {
       newList.push(newObj)
     }
-    return { lastEmptyTimeObjIndex, newList }
+    return fn(lastEmptyTimeObjIndex, newList)
   }
 
-  const insertStep = () => {
-    const { lastEmptyTimeObjIndex, newList } = getNewListObj(true)
-    setList(newList)
-    setTableBodyScrollTop(lastEmptyTimeObjIndex)
-    checkIndexForCanInsert(lastEmptyTimeObjIndex)
-  }
+  const insertStep = () =>
+    getNewListObj(true, (lastEmptyTimeObjIndex, newList) => {
+      setList(newList)
+      setTableBodyScrollTop(lastEmptyTimeObjIndex)
+      checkIndexForCanInsert(lastEmptyTimeObjIndex)
+    })
 
   const thisStepDone = () => {
-    let { lastEmptyTimeObjIndex, newList } = getNewListObj(false)
-    if (lastEmptyTimeObjIndex < 0) {
-      lastEmptyTimeObjIndex = newList.length
-      setList(newList)
-    } else {
-      list[lastEmptyTimeObjIndex].time = time
-    }
-    setTableBodyScrollTop(lastEmptyTimeObjIndex)
-    checkIndexForCanInsert(lastEmptyTimeObjIndex)
+    getNewListObj(true, (lastEmptyTimeObjIndex, newList) => {
+      if (lastEmptyTimeObjIndex < 0) {
+        lastEmptyTimeObjIndex = newList.length
+        setList(newList)
+      } else {
+        list[lastEmptyTimeObjIndex].time = time
+      }
+      setTableBodyScrollTop(lastEmptyTimeObjIndex) -
+        checkIndexForCanInsert(lastEmptyTimeObjIndex)
+    })
   }
 
   const resetTime = () => {
@@ -157,6 +155,26 @@ function Timer() {
         })
     )
     setTableBodyScrollTop(0)
+  }
+
+  const saveList = () => {
+    let historyList = JSON.parse(localStorage.getItem('history'))
+    console.log(historyList)
+    if (!historyList) {
+      historyList = []
+    }
+    historyList.push({
+      date: new Date(),
+      data: list,
+    })
+    localStorage.setItem('history', JSON.stringify(historyList))
+    setTimerOn(false)
+    setTime(
+      list.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.time,
+        0
+      )
+    )
   }
 
   useEffect(() => {
@@ -174,11 +192,8 @@ function Timer() {
   }, [timerOn])
 
   return (
-    <div className="Timers">
-      <h2>Stopwatch</h2>
-      <div id="display">
-        <h3>{formatTime(time)}</h3>
-      </div>
+    <div className="timers">
+      <Title level={1}>{formatTime(time)}</Title>
 
       <Table
         columns={columns}
@@ -190,26 +205,29 @@ function Timer() {
         }}
       />
 
-      <div id="buttons">
+      <div className="buttons_group">
         {!timerOn && time === 0 && (
-          <Button onClick={() => setTimerOn(true)}>Start</Button>
+          <Button onClick={() => setTimerOn(true)}>{t('Start')}</Button>
         )}
-        {timerOn && <Button onClick={() => setTimerOn(false)}>Stop</Button>}
-        {timerOn && <Button onClick={() => thisStepDone()}>Done</Button>}
         {timerOn && (
-          <Button onClick={() => insertStep()} disabled={!canInsert}>
+          <Button onClick={() => setTimerOn(false)}>{t('Stop')}</Button>
+        )}
+        {timerOn && <Button onClick={thisStepDone}>{t('Done')}</Button>}
+        {timerOn && (
+          <Button onClick={insertStep} disabled={!canInsert}>
             {' '}
             +{' '}
           </Button>
         )}
         {!timerOn && time > 0 && (
-          <Button onClick={() => resetTime()}>Reset</Button>
+          <Button onClick={resetTime}>{t('Reset')}</Button>
         )}
         {!timerOn && time > 0 && (
-          <Button onClick={() => setTimerOn(true)}>Resume</Button>
+          <Button onClick={() => setTimerOn(true)}>{t('Resume')}</Button>
         )}
-        <Button onClick={() => changeLanguageHandler()}>lang: tw</Button>
-        <Button onClick={() => changeLanguageHandler('en')}>lang: en</Button>
+        <Button onClick={saveList} disabled={canInsert}>
+          {t('Save')}
+        </Button>
       </div>
     </div>
   )
