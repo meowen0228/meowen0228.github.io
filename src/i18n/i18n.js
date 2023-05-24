@@ -7,11 +7,19 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
+      timer: 'Timer',
+      history: 'History',
+      template: 'Template',
+      style: 'Style',
       table_title_name: 'Name',
     },
   },
   tw: {
     translation: {
+      timer: '計時器',
+      history: '歷史紀錄',
+      template: '模板',
+      style: '樣式',
       table_title_name: '名稱',
     },
   },
