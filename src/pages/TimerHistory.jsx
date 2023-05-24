@@ -24,7 +24,13 @@ function TimerHistory() {
     {
       title: t('Date'),
       dataIndex: 'date',
+      width: 200,
       render: (record) => dayjs(record.date).format('YYYY/MM/DD hh:mm:ss'),
+    },
+    {
+      title: 'Total Step',
+      dataIndex: 'data',
+      render: (record) => record.length,
     },
     {
       title: 'Total Time',
@@ -33,19 +39,16 @@ function TimerHistory() {
   ]
 
   const processHistoryData = () => {
-    const nenwList = getArrayWithKey('history', (list) =>
-      list.map((v, i) => {
-        v.totalTime = formatInterval(
-          v.data.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.time,
-            0
-          )
+    const nenwList = getArrayWithKey('history', (list) => list).map((v, i) => {
+      v.totalTime = formatInterval(
+        v.data.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.time,
+          0
         )
-        v.key = i + 1
-        return v
-      })
-    )
-    console.log(nenwList)
+      )
+      v.key = i + 1
+      return v
+    })
     setList(nenwList)
   }
 
