@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Table, Select, Button, Typography } from 'antd'
+import { Table, Button, Typography } from 'antd'
 import './Timer.scss'
 
 import { formatInterval } from '../utils/formatTimeFunc'
@@ -13,6 +13,7 @@ function Timer() {
   const [time, setTime] = useState(0)
   const [timerOn, setTimerOn] = useState(false)
   const [canInsert, setCanInsert] = useState(true)
+  const [canSave, setCanSave] = useState(false)
   const tableBodyHight = 240
   const [list, setList] = useState([
     {
@@ -59,16 +60,6 @@ function Timer() {
     {
       title: t('Name'),
       dataIndex: 'name',
-      render: (v) => {
-        if (!v) {
-          return (
-            <Select>
-              <Select.Option value={'aaa'}>aaa</Select.Option>
-            </Select>
-          )
-        }
-        return v
-      },
     },
     {
       title: 'Time',
@@ -98,6 +89,7 @@ function Timer() {
   const checkIndexForCanInsert = (index) => {
     if (index == list.length - 1) {
       setCanInsert(false)
+      setCanSave(true)
     }
   }
 
@@ -106,7 +98,7 @@ function Timer() {
     const newList = [...list]
     const newObj = {
       key: list.length + 1,
-      name: '',
+      name: lastEmptyTimeObjIndex + 1,
       time: time,
     }
     if (insert) {
@@ -210,7 +202,7 @@ function Timer() {
         {!timerOn && time > 0 && (
           <Button onClick={() => setTimerOn(true)}>{t('Resume')}</Button>
         )}
-        <Button onClick={saveList} disabled={canInsert}>
+        <Button onClick={saveList} disabled={!canSave}>
           {t('Save')}
         </Button>
       </div>
