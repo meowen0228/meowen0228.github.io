@@ -38,17 +38,21 @@ function TimerHistory() {
     },
   ]
 
+  const reduceTime = (data) => {
+    return data.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.time,
+      0
+    )
+  }
+
+  const addDataKey = (v, i) => {
+    v.totalTime = formatInterval(reduceTime(v.data))
+    v.key = i + 1
+    return v
+  }
+
   const processHistoryData = () => {
-    const nenwList = getArrayWithKey('history', (list) => list).map((v, i) => {
-      v.totalTime = formatInterval(
-        v.data.reduce(
-          (accumulator, currentValue) => accumulator + currentValue.time,
-          0
-        )
-      )
-      v.key = i + 1
-      return v
-    })
+    const nenwList = getArrayWithKey('history', (list) => list).map(addDataKey)
     setList(nenwList)
   }
 
